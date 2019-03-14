@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ToDo Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+    <style>
+      .hidden {
+        display: none;
+      }
+
+      .visible {
+        display: inline-flex;
+        justify-content: space-between;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      input[type="text"]:not(.browser-default) {
+        height: 2.5rem;
+      }
+
+      .done {
+        text-decoration: line-through;
+        color: #ccc;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1 class="center">ToDo App</h1>
+    </header>
+    <div class="container">
+      {% for todo in todos %}
+      <div class="row">
+        <div class="col s12">
+          <div class="card white darken-1">
+            <div class="card-content">
+              {% if todo.todo_completed == True %}
+              <p class="done">{{ todo.todo_content }}</p>
+              {% else %}
+              <p>{{ todo.todo_content }}</p>
+              {% endif %}
+              <br />
+              <p class="grey-text align-right">
+                <i class="fa fa-clock"></i> {{ todo.todo_time }}
+              </p>
+            </div>
+            <div class="card-action">
+              <div style="display:flex; justify-content: space-between">
+                <div style="display:flex; justify-content: space-between">
+                  <form action="/toggle/" method="post" class="">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ todo.todo_id }}" />
+                    <button type="submit" class="btn waves-effect waves-light" style="display: inline">
+                      {% if todo.todo_completed == False %}
+                      Mark as done
+                      {% else %}
+                      Mark as not done
+                      {% endif %}
+                    </button>
+                  </form>&nbsp;&nbsp;
+                  <button class="edit btn waves-effect waves-light">
+                    Edit
+                  </button>
+                </div>
+                <form action="/edit/" method="post" class="edit-form hidden">
+                  {% csrf_token %}
+                  <input type="text" value="{{ todo.todo_content }}" name="content" id="edited-content"
+                    style="width: 65%" />
+                  <input type="hidden" name="id" value="{{ todo.todo_id }}" />
+                  <button type="submit" class="edit btn waves-effect waves-light" style="display: inline">
+                    Save
+                  </button>
+                </form>
+                <form action="/delete/" method="post" style="display: inline">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{ todo.todo_id }}" />
+                  <button type="submit" class="btn red waves-effect waves-light">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <form action="/add/" method="post" style="display: flex; justify-content:space-between">
+        {% csrf_token %}
+        <input type="text" placeholder="Content" name="content" id="content" style="display:inline-block; width: 55%" />
+        <input type="text" placeholder="Date" name="date" id="date" class="datepicker"
+          style="display:inline-block; width: 12%" />
+        <input type="text" placeholder="Time" name="time" id="time" class="timepicker"
+          style="display:inline-block; width: 12%" />
+        <button type="submit" class="btn waves-effect waves-light text-white" style="display:inline-block; width: 10%">
+          Add
+        </button>
+      </form>
+    </div>
+    <footer class="page-footer white">
+      <div class="footer-copyright black-text white">
+        <div class="container center">
+          Developed by Sudipto Ghosh
+        </div>
+      </div>
+      </div>
+    </footer>
+  </body>
+  <script>
+    const editButtons = document.querySelectorAll(".edit");
+    const editForms = document.querySelectorAll(".edit-form");
+    editButtons.forEach(editButton => {
+      editForms.forEach(editForm => {
+        editButton.addEventListener("click", e => {
+          editForm.classList.toggle("hidden");
+          editForm.classList.toggle("visible");
+        });
+      });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+      var elemsT = document.querySelectorAll('.timepicker');
+      var elemsD = document.querySelectorAll('.datepicker');
+
+      var instances = M.Timepicker.init(elemsT, {});
+      var instances = M.Datepicker.init(elemsD, {});
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</html>
