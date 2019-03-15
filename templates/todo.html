@@ -84,7 +84,8 @@
                   <input type="hidden" name="id" value="{{ todo.todo_id }}" />
                   <input type="hidden" name="browser" value="1">
                   <button type="submit" class="edit btn waves-effect waves-light" style="display: inline">
-                    Save
+                    <span class="show-on-large hide-on-med-and-down">Save</span>
+                    <i class="fa fa-save show-on-medium-and-down"></i>
                   </button>
                 </form>
                 <form action="/delete/" method="post" style="display: inline">
@@ -92,7 +93,8 @@
                   <input type="hidden" name="id" value="{{ todo.todo_id }}" />
                   <input type="hidden" name="browser" value="1">
                   <button type="submit" class="btn red waves-effect waves-light">
-                    Delete
+                    <span class="show-on-large hide-on-med-and-down">Delete</span>
+                    <i class="fa fa-trash show-on-medium-and-down"></i>
                   </button>
                 </form>
               </div>
