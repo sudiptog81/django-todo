@@ -55,23 +55,27 @@ Example Response:
 - `content` (required) - TextField
 - `date` (required) - MMM DD, YYYY format
 - `time` (required) - HH:MM AM/PM format
+- `browser` (required) - 0 for JSON Response, 1 for Redirection
 
 ### Updating Todos
 
 #### POST /toggle/
 
 - `id` (required) - Todo ID (from /view/)
+- `browser` (required) - 0 for JSON Response, 1 for Redirection
 
 #### POST /edit/
 
 - `id` (required) - Todo ID (from /view/)
 - `content` (required) - TextField
+- `browser` (required) - 0 for JSON Response, 1 for Redirection
 
 ### Deleting Todos
 
 #### POST /delete/
 
 - `id` (required) - Todo ID (from /view/)
+- `browser` (required) - 0 for JSON Response, 1 for Redirection
 
 ## Author
 

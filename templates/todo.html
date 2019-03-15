@@ -17,6 +17,7 @@
       .visible {
         display: inline-flex;
         justify-content: space-between;
+        width: 70%;
       }
 
       .center {
@@ -60,16 +61,20 @@
                   <form action="/toggle/" method="post" class="">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="{{ todo.todo_id }}" />
+                    <input type="hidden" name="browser" value="1">
                     <button type="submit" class="btn waves-effect waves-light" style="display: inline">
                       {% if todo.todo_completed == False %}
-                      Mark as done
+                      <span class="show-on-large hide-on-med-and-down">Mark as done</span>
+                      <i class="fa fa-check show-on-medium-and-down"></i>
                       {% else %}
-                      Mark as not done
+                      <span class="show-on-large hide-on-med-and-down">Mark as not done</span>
+                      <i class="fa fa-reply show-on-medium-and-down"></i>
                       {% endif %}
                     </button>
                   </form>&nbsp;&nbsp;
                   <button class="edit btn waves-effect waves-light">
-                    Edit
+                    <span class="show-on-large hide-on-med-and-down">Edit</span>
+                    <i class="fa fa-pen show-on-medium-and-down"></i>
                   </button>
                 </div>
                 <form action="/edit/" method="post" class="edit-form hidden">
@@ -77,6 +82,7 @@
                   <input type="text" value="{{ todo.todo_content }}" name="content" id="edited-content"
                     style="width: 65%" />
                   <input type="hidden" name="id" value="{{ todo.todo_id }}" />
+                  <input type="hidden" name="browser" value="1">
                   <button type="submit" class="edit btn waves-effect waves-light" style="display: inline">
                     Save
                   </button>
@@ -84,6 +90,7 @@
                 <form action="/delete/" method="post" style="display: inline">
                   {% csrf_token %}
                   <input type="hidden" name="id" value="{{ todo.todo_id }}" />
+                  <input type="hidden" name="browser" value="1">
                   <button type="submit" class="btn red waves-effect waves-light">
                     Delete
                   </button>
@@ -102,6 +109,7 @@
           style="display:inline-block; width: 12%" />
         <input type="text" placeholder="Time" name="time" id="time" class="timepicker"
           style="display:inline-block; width: 12%" />
+        <input type="hidden" name="browser" value="1">
         <button type="submit" class="btn waves-effect waves-light text-white" style="display:inline-block; width: 10%">
           Add
         </button>
